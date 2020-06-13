@@ -14,6 +14,7 @@ def create_parser():
     parser = argparse.ArgumentParser(description="Transform input text")
     parser.add_argument("-l", "--lower", help="Changes text to lowercase", action="store_true")
     parser.add_argument("-u", "--upper", help="Changes text to uppercase", action="store_true")
+    parser.add_argument("-t", "--title", help="Capitalizes first letter of text", action="store_true")
     parser.add_argument('text', help='text that is changed')
     return parser
 
@@ -32,6 +33,8 @@ def main(args):
         text = text.lower()
     elif args.upper:
         text = text.upper()
+    elif args.title:
+        text = text.title()
 
     print(text)
     return text

@@ -81,13 +81,15 @@ class TestEcho(unittest.TestCase):
         self.parser = echo.create_parser()
 
     def test_help(self):
-        """ Check that usage is printed when -h option is given"""
-        args = ["-h"]
+        """Running the program without arguments should show usage."""
+        process = subprocess.Popen(
+            ["python", "./echo.py", "-h"],
+            stdout=subprocess.PIPE)
+        stdout, _ = process.communicate()
         with open("USAGE") as f:
-            usage = f.read().splitlines()
-        with Capturing() as output:
-            self.module.main(args)
-        self.assertEqual(output, usage)
+            usage = f.read()
+
+        self.assertEqual(stdout, usage)
 
     def test_parser(self):
         """Check if create_parser() returns a parser object"""
@@ -141,6 +143,22 @@ class TestEcho(unittest.TestCase):
             self.module.main(args)
         assert output, "This program did not print anything."
         self.assertEqual(output[0], "HELLO WORLD")
+
+    def test_title_short(self):
+        """Check if short option '-t' capitalizes first char of word"""
+        args = ["-t", "hello world"]
+        with Capturing() as output:
+            self.module.main(args)
+        assert output, "This program did not print anything"
+        self.assertEqual(output[0], "Hello World")
+
+    def test_title_long(self):
+        """Check if long option '--title' capitalizes first char of word """
+        args = ["--title", "hello world"]
+        with Capturing() as output:
+            self.module.main(args)
+        assert output, "This program did not print anything"
+        self.assertEqual(output[0], "Hello World")
 
 
 if __name__ == '__main__':
