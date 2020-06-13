@@ -13,6 +13,7 @@ def create_parser():
     """Creates and returns an argparse cmd line option parser."""
     parser = argparse.ArgumentParser(description="Transform input text")
     parser.add_argument("-l", "--lower", help="Changes text to lowercase", action="store_true")
+    parser.add_argument("-u", "--upper", help="Changes text to uppercase", action="store_true")
     parser.add_argument('text', help='text that is changed')
     return parser
 
@@ -29,6 +30,9 @@ def main(args):
 
     if args.lower:
         text = text.lower()
+    elif args.upper:
+        text = text.upper()
+
     print(text)
     return text
 

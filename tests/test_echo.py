@@ -119,12 +119,28 @@ class TestEcho(unittest.TestCase):
         self.assertEqual(output[0], "hello world")
 
     def test_lower_long(self):
-        """Check if short option '--lower' performs lowercasing"""
+        """Check if long option '--lower' performs lowercasing"""
         args = ["--lower", "HELLO WORLD"]
         with Capturing() as output:
             self.module.main(args)
         assert output, "The program did not print anything."
         self.assertEqual(output[0], "hello world")
+
+    def test_upper_short(self):
+        """Check if short option '-u' performs uppercasing."""
+        args = ["-u", "hello world"]
+        with Capturing() as output:
+            self.module.main(args)
+        assert output, "The program did not print anything."
+        self.assertEqual(output[0], "HELLO WORLD")
+
+    def test_upper_long(self):
+        """Check if short option '--upper' performs uppercasing. """
+        args = ["--upper", "hello world"]
+        with Capturing() as output:
+            self.module.main(args)
+        assert output, "This program did not print anything."
+        self.assertEqual(output[0], "HELLO WORLD")
 
 
 if __name__ == '__main__':
