@@ -11,11 +11,12 @@ import argparse
 
 def create_parser():
     """Creates and returns an argparse cmd line option parser."""
-    parser = argparse.ArgumentParser(description="Transform input text")
-    parser.add_argument("-l", "--lower", help="Changes text to lowercase", action="store_true")
-    parser.add_argument("-u", "--upper", help="Changes text to uppercase", action="store_true")
-    parser.add_argument("-t", "--title", help="Capitalizes first letter of text", action="store_true")
-    parser.add_argument('text', help='text that is changed')
+    parser = argparse.ArgumentParser(description="Perform transformation on input text.")
+    parser.add_argument("-u", "--upper", help="convert text to uppercase", action="store_true")
+    parser.add_argument("-l", "--lower", help="convert text to lowercase", action="store_true")
+    parser.add_argument("-t", "--title", help="convert text to titlecase", action="store_true")
+    parser.add_argument('text', help='text to be manipulated')
+
     return parser
 
 
@@ -26,18 +27,18 @@ def main(args):
     if not args:
         parser.print_usage()
         sys.exit()
+
     args = parser.parse_args(args)
     text = args.text
 
-    if args.lower:
-        text = text.lower()
-    elif args.upper:
+    if args.upper:
         text = text.upper()
+    elif args.lower:
+        text = text.lower()
     elif args.title:
         text = text.title()
 
     print(text)
-    return text
 
 
 if __name__ == '__main__':

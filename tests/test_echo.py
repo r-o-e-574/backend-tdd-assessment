@@ -86,10 +86,10 @@ class TestEcho(unittest.TestCase):
             ["python", "./echo.py", "-h"],
             stdout=subprocess.PIPE)
         stdout, _ = process.communicate()
-        with open("USAGE") as f:
+        with open("./USAGE") as f:
             usage = f.read()
 
-        self.assertEqual(stdout, usage)
+        self.assertEqual(stdout.decode(), usage)
 
     def test_parser(self):
         """Check if create_parser() returns a parser object"""
@@ -158,6 +158,27 @@ class TestEcho(unittest.TestCase):
         with Capturing() as output:
             self.module.main(args)
         assert output, "This program did not print anything"
+        self.assertEqual(output[0], "Hello World")
+
+    def test_all(self):
+        args = ["-tul", "heLLo"]
+        with Capturing() as output:
+            self.module.main(args)
+        assert output, "This program did not print anything."
+        self.assertEqual(output[0], "HELLO")
+
+    def test_two_args(self):
+        args = ["-tl", "heLLo"]
+        with Capturing() as output:
+            self.module.main(args)
+        assert output, "This program did not print anything"
+        self.assertEqual(output[0], "hello")
+
+    def test_no_args(self):
+        args = ["Hello World"]
+        with Capturing() as output:
+            self.module.main(args)
+        assert output, "This program did not print anything."
         self.assertEqual(output[0], "Hello World")
 
 
