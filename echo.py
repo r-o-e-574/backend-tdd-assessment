@@ -33,9 +33,9 @@ def main(args):
 
     if args.upper:
         text = text.upper()
-    elif args.lower:
+    if args.lower:
         text = text.lower()
-    elif args.title:
+    if args.title:
         text = text.title()
 
     print(text)

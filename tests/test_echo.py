@@ -165,10 +165,10 @@ class TestEcho(unittest.TestCase):
         with Capturing() as output:
             self.module.main(args)
         assert output, "This program did not print anything."
-        self.assertEqual(output[0], "HELLO")
+        self.assertEqual(output[0], "Hello")
 
     def test_two_args(self):
-        args = ["-tl", "heLLo"]
+        args = ["-ul", "heLLo"]
         with Capturing() as output:
             self.module.main(args)
         assert output, "This program did not print anything"
